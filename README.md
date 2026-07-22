@@ -122,6 +122,30 @@ Igual ao do template genérico — com uma exigência a mais, porque é dinheiro
 Detalhes dos dois fluxos (dev interno / parceiro) no README do
 [template genérico](https://github.com/mira-dev-tech/mira-commerce-plugin-example#colocando-em-produ%C3%A7%C3%A3o).
 
+## Quando o core muda — o seu plugin de pagamento quebra?
+
+**Não automaticamente.** Em produção o tenant fica no **pin** da imagem do
+core; este plugin continua enquanto `compatibleCore` (no `manifest.yaml`)
+casar com o `CoreLine` desse binário.
+
+| O core muda… | Este plugin… | Quem actualiza |
+|--------------|--------------|----------------|
+| Aditiva (novo provedor nativo, campo opcional no hook, refactor) | Continua | Ninguém obrigatório |
+| Patch CVE na mesma linha LTS | Continua | Cliente só se bumpa o pin |
+| Breaking no protocolo (`CoreLine` major, ex. `0.2` → `1.0`) | Continua nos pods antigos; no upgrade, verify bloqueia até rebuild | Autor do plugin + re-vendor; cliente opt-in no pin |
+
+Exemplo: adicionar Stripe Connect no core **não** obriga actualizar este
+template. Remover um campo de `payment.route` ou mudar o significado de um
+deny code **sim** — major de `CoreLine`, Release do `commerce-ext`, e só
+então bump de `compatibleCore` aqui.
+
+Kill switch sem esperar release: tirar o manifest + restart. Falha de hook em
+pagamento continua **fail-closed** (`PLUGIN_FAILURE`), sem derrubar o processo.
+
+Contrato completo:
+[`commerce-ext` § Versionamento](https://github.com/mira-dev-tech/commerce-ext#versionamento-e-compatibilidade--o-que-acontece-quando-o-core-muda)
+· [ADR 0048](https://github.com/mira-dev-tech/mira-commerce-core/blob/main/docs/adr/0048-extension-compatibility-versioning.md).
+
 ## Limitação conhecida
 
 `payment.installment_resolve` (parcelamento) está no catálogo de hooks, mas
