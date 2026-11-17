@@ -34,6 +34,7 @@ estreitas.
 ## Publicar
 
 PR com `go test ./...` e o handshake verdes. Tag `vX.Y.Z`. O workflow da
-plataforma constrói esse SHA e grava a release. A primeira versão de um id novo
-espera review. Ligar a uma empresa é outro disparo, e só numa empresa que o
-registo atribua a este parceiro.
+plataforma constrói esse SHA e grava a release. O `partner_id` tem de estar
+ativo no registo dinâmico do Console. Um id que já pertence a outro parceiro
+é recusado na gravação. Ligar a uma empresa é outro disparo, e só numa empresa
+que o registo atribua a este parceiro.
