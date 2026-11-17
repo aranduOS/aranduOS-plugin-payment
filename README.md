@@ -99,14 +99,17 @@ O `plugintest` é o mini Extension Host em memória do SDK — reproduz cadeia p
 prioridade, timeout de 300ms e fail-closed **na sua máquina**, sem acesso ao
 core.
 
-## Dois modos de rodar
+## Como o binário sobe
 
-1. **In-process** (padrão hoje): copie o pacote para `extensions/<id>` no core,
-   registre no loader e use `runtime.type: in-process` no manifest.
-2. **Binário externo** (este template): `go build -o bin/example-payment
-   ./cmd/example-payment` e aponte `MIRA_MANIFEST_PATH` para o `manifest.yaml`.
-   Valide o protocolo com `./bin/example-payment --commerce-ext-handshake`
-   (deve responder `commerce-ext-ok`).
+A API não arranca este processo e `MIRA_MANIFEST_PATH` não é o deploy. O
+`main` é `commerceext.Serve`. O handshake é a prova do CI:
+
+```bash
+go build -o bin/example-payment ./cmd/example-payment
+./bin/example-payment --commerce-ext-handshake   # commerce-ext-ok
+```
+
+Publicar é a tag `vX.Y.Z` no commit verde. A Mirá constrói esse SHA e grava a release. O pin fica `installing` até o role `ext_<id>` existir. Regras e razões: [`AGENTS.md`](AGENTS.md).
 
 ## Caminho para produção
 
