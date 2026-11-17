@@ -1,8 +1,9 @@
-// Command example-payment empacota o plugin como BINÁRIO EXTERNO (go-plugin):
-// o Extension Host do core sobe este processo e conversa com ele por RPC.
+// Command example-payment é o processo do plugin de parceiro.
+// Não é filho da API e não se carrega com MIRA_MANIFEST_PATH.
+// No cluster a única env é COMMERCE_EXT_HOST; o host disca o RPC.
 //
 // Build:  go build -o bin/example-payment ./cmd/example-payment
-// Teste:  ./bin/example-payment --commerce-ext-handshake   → "commerce-ext-ok"
+// Prova:  ./bin/example-payment --commerce-ext-handshake   → "commerce-ext-ok"
 package main
 
 import (
