@@ -1,7 +1,7 @@
-# mira-commerce-plugin-payment
+# aranduOS-plugin-payment
 
 Template de **plugin de meios de pagamento e antifraude** do
-[Mira Commerce](https://mira-dev.tech). Clone, rode os testes, troque as
+[aranduOS](https://aranduos.com). Clone, rode os testes, troque as
 regras pelas suas.
 
 Ele implementa as três decisões mais comuns do domínio:
@@ -17,7 +17,7 @@ go test ./...   # funciona logo após o clone — SDK vendorado
 ```
 
 > Novo no modelo de plugins? Comece pelo template genérico
-> [`mira-commerce-plugin-example`](https://github.com/mira-dev-tech/mira-commerce-plugin-example)
+> [`aranduOS-plugin-example`](https://github.com/aranduOS/aranduOS-plugin-example)
 > — ele ensina o contrato (Meta/Init/Register/Shutdown), manifest e ciclo de
 > vida. Aqui focamos no que é **específico de pagamento**.
 
@@ -35,7 +35,7 @@ tem uma consequência direta: **nunca faça I/O de rede dentro do hook**.
 
 Precisa consultar um antifraude externo? Use o padrão de cache + timeout
 próprio + fallback do template de frete
-([`mira-commerce-plugin-shipping`](https://github.com/mira-dev-tech/mira-commerce-plugin-shipping)) —
+([`aranduOS-plugin-shipping`](https://github.com/aranduOS/aranduOS-plugin-shipping)) —
 com uma diferença crucial: em frete o fallback é *permitir*; em pagamento,
 decida conscientemente qual é o seu fallback seguro.
 
@@ -109,7 +109,7 @@ go build -o bin/example-payment ./cmd/example-payment
 ./bin/example-payment --commerce-ext-handshake   # commerce-ext-ok
 ```
 
-Publicar é a tag `vX.Y.Z` no commit verde. A Mirá constrói esse SHA e grava a release. O pin fica `installing` até o role `ext_<id>` existir. Regras e razões: [`AGENTS.md`](AGENTS.md).
+Publicar é a tag `vX.Y.Z` no commit verde. A plataforma constrói esse SHA e grava a release. O pin fica `installing` até o role `ext_<id>` existir. Regras e razões: [`AGENTS.md`](AGENTS.md).
 
 ## Caminho para produção
 
@@ -118,12 +118,12 @@ Igual ao do template genérico — com uma exigência a mais, porque é dinheiro
 1. Unidade + integração (`plugintest`) + handshake + manifest verdes.
 2. **Revisão em par das regras de bloqueio**: um falso positivo aqui não é bug,
    é receita perdida. Documente a taxa esperada de bloqueio antes de subir.
-3. Ambiente Mirá (dev → staging) com cenários de aceite combinados.
+3. Ambiente da plataforma (dev → staging) com cenários de aceite combinados.
 4. Produção **atrás de flag**, com plano de rollback (desligar a flag) e
    monitoramento dos códigos de bloqueio nas primeiras horas.
 
 Detalhes dos dois fluxos (dev interno / parceiro) no README do
-[template genérico](https://github.com/mira-dev-tech/mira-commerce-plugin-example#colocando-em-produ%C3%A7%C3%A3o).
+[template genérico](https://github.com/aranduOS/aranduOS-plugin-example#colocando-em-produ%C3%A7%C3%A3o).
 
 ## Limitação conhecida
 
@@ -131,7 +131,7 @@ Detalhes dos dois fluxos (dev interno / parceiro) no README do
 **ainda não é registrável** via `commerce-ext` — falta a superfície pública no
 SDK. Está sendo tratado; até lá, regras de parcelamento não têm hook de plugin.
 
-## Ecossistema Mirá Commerce
+## Ecossistema
 
 📚 **Documentação pública: [docs.mira-dev.tech](https://docs.mira-dev.tech)**
 
@@ -140,6 +140,6 @@ SDK. Está sendo tratado; até lá, regras de parcelamento não têm hook de plu
 | [mira-commerce-sdk-js](https://github.com/mira-dev-tech/mira-commerce-sdk-js) | SDKs oficiais JS/TS — `client-sdk` (API tipada) e `checkout-sdk` (checkout headless) |
 | [mira-commerce-storefront-guide](https://github.com/mira-dev-tech/mira-commerce-storefront-guide) | Guia oficial para construir um storefront (vitrine + checkout) sobre as APIs |
 | [commerce-ext](https://github.com/mira-dev-tech/commerce-ext) | SDK público de plugins — Extension Protocol |
-| [mira-commerce-plugin-example](https://github.com/mira-dev-tech/mira-commerce-plugin-example) | Template de plugin — exemplo didático (hooks, eventos, manifest, go-plugin) |
-| [mira-commerce-plugin-payment](https://github.com/mira-dev-tech/mira-commerce-plugin-payment) | Template de plugin de pagamento e antifraude (roteamento, 3DS, velocity) |
-| [mira-commerce-plugin-shipping](https://github.com/mira-dev-tech/mira-commerce-plugin-shipping) | Template de plugin de logística/frete (cotação externa, cache, circuit breaker) |
+| [aranduOS-plugin-example](https://github.com/aranduOS/aranduOS-plugin-example) | Template de plugin — exemplo didático (hooks, eventos, manifest, go-plugin) |
+| [aranduOS-plugin-payment](https://github.com/aranduOS/aranduOS-plugin-payment) | Template de plugin de pagamento e antifraude (roteamento, 3DS, velocity) |
+| [aranduOS-plugin-shipping](https://github.com/aranduOS/aranduOS-plugin-shipping) | Template de plugin de logística/frete (cotação externa, cache, circuit breaker) |

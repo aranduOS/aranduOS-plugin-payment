@@ -3,7 +3,7 @@
 Template de parceiro para `payment.route` e `checkout.risk_assess`. A única
 dependência de plataforma é `github.com/mira-dev-tech/commerce-ext`. O
 contrato de publicação é o mesmo do
-[mira-commerce-plugin-example](https://github.com/mira-dev-tech/mira-commerce-plugin-example/blob/main/AGENTS.md).
+[aranduOS-plugin-example](https://github.com/aranduOS/aranduOS-plugin-example/blob/main/AGENTS.md).
 O que muda aqui é dinheiro em movimento: as regras de bloqueio são mais
 estreitas.
 
@@ -28,12 +28,12 @@ estreitas.
    mande preço nem chave de idempotência, não grave a release com o token
    de parceiro e não marque o pin `active`. As razões estão no AGENTS.md do
    template genérico: este processo não é a API, o digest é o da imagem que
-   a Mirá construiu, e o install nasce `installing` até o role `ext_<id>`
+   a plataforma construiu, e o install nasce `installing` até o role `ext_<id>`
    respeitar a RLS.
 
 ## Publicar
 
 PR com `go test ./...` e o handshake verdes. Tag `vX.Y.Z`. O workflow da
-Mirá constrói esse SHA e grava a release. A primeira versão de um id novo
+plataforma constrói esse SHA e grava a release. A primeira versão de um id novo
 espera review. Ligar a uma empresa é outro disparo, e só numa empresa que o
 registo atribua a este parceiro.

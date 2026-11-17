@@ -12,7 +12,7 @@ import (
 
 	commerceext "github.com/mira-dev-tech/commerce-ext"
 	"github.com/mira-dev-tech/commerce-ext/plugintest"
-	examplepayment "github.com/mira-dev-tech/mira-commerce-plugin-payment"
+	examplepayment "github.com/aranduOS/aranduOS-plugin-payment"
 )
 
 func newHost(t *testing.T, cfg map[string]any) *plugintest.Host {

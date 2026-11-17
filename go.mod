@@ -1,4 +1,4 @@
-module github.com/mira-dev-tech/mira-commerce-plugin-payment
+module github.com/aranduOS/aranduOS-plugin-payment
 
 go 1.26.5
 
