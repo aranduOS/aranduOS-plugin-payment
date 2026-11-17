@@ -61,7 +61,7 @@ type Plugin struct {
 	logger commerceext.Logger
 
 	// Config imutável após Init — handlers só leem.
-	threeDSThreshold float32
+	threeDSThreshold float64
 	maxAttempts      int
 	blockBoletoFirst bool
 }
@@ -177,24 +177,24 @@ func isFirstPurchase(order commerceext.OrderView) bool {
 	return false
 }
 
-func configFloat(cfg map[string]any, key, envKey string, def float32) float32 {
+func configFloat(cfg map[string]any, key, envKey string, def float64) float64 {
 	if cfg != nil {
 		switch v := cfg[key].(type) {
 		case float64:
-			return float32(v)
-		case float32:
 			return v
+		case float32:
+			return float64(v)
 		case int:
-			return float32(v)
+			return float64(v)
 		case string:
-			if f, err := strconv.ParseFloat(v, 32); err == nil {
-				return float32(f)
+			if f, err := strconv.ParseFloat(v, 64); err == nil {
+				return f
 			}
 		}
 	}
 	if raw := os.Getenv(envKey); raw != "" {
-		if f, err := strconv.ParseFloat(raw, 32); err == nil && f >= 0 {
-			return float32(f)
+		if f, err := strconv.ParseFloat(raw, 64); err == nil && f >= 0 {
+			return f
 		}
 	}
 	return def
