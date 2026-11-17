@@ -1,5 +1,5 @@
 // Package examplepayment é o template de plugin de MEIOS DE PAGAMENTO e
-// ANTIFRAUDE do Mira Commerce. Ele mostra os dois hooks que decidem, em tempo
+// ANTIFRAUDE do aranduOS. Ele mostra os dois hooks que decidem, em tempo
 // de checkout, *como* e *se* uma cobrança acontece:
 //
 //	payment.route         → escolhe/bloqueia o meio e exige 3DS (antes do gateway)
@@ -31,7 +31,7 @@
 //     no log; ao comprador, mensagem neutra.
 //
 // Guia do modelo de extensibilidade:
-// https://github.com/mira-dev-tech/mira-commerce-plugin-example
+// https://github.com/aranduOS/aranduOS-plugin-example
 package examplepayment
 
 import (
